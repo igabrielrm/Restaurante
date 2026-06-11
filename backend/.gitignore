@@ -1,0 +1,25 @@
+# Compilacion Java / Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Gradle, por compatibilidad si se incorpora en el futuro
+.gradle/
+build/
+
+# IDEs y editores
+.idea/
+.vscode/
+*.iml
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Logs y temporales
+*.log
+*.tmp
+*.temp

@@ -1,0 +1,32 @@
+#!/bin/sh
+set -eu
+
+BASE_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+WRAPPER_PROPERTIES="$BASE_DIR/.mvn/wrapper/maven-wrapper.properties"
+MAVEN_VERSION="3.9.9"
+MAVEN_DIST_DIR="${HOME}/.m2/wrapper/dists/apache-maven-${MAVEN_VERSION}"
+MAVEN_HOME="${MAVEN_DIST_DIR}/apache-maven-${MAVEN_VERSION}"
+MAVEN_ZIP="${MAVEN_DIST_DIR}/apache-maven-${MAVEN_VERSION}-bin.zip"
+
+if [ ! -f "$WRAPPER_PROPERTIES" ]; then
+  echo "Maven Wrapper properties not found: $WRAPPER_PROPERTIES" >&2
+  exit 1
+fi
+
+if [ ! -x "$MAVEN_HOME/bin/mvn" ]; then
+  echo "Downloading Apache Maven ${MAVEN_VERSION}..."
+  mkdir -p "$MAVEN_DIST_DIR"
+  DISTRIBUTION_URL="$(sed -n 's/^distributionUrl=//p' "$WRAPPER_PROPERTIES" | head -n 1)"
+  if command -v curl >/dev/null 2>&1; then
+    curl -fsSL "$DISTRIBUTION_URL" -o "$MAVEN_ZIP"
+  elif command -v wget >/dev/null 2>&1; then
+    wget -q "$DISTRIBUTION_URL" -O "$MAVEN_ZIP"
+  else
+    echo "curl or wget is required to download Maven." >&2
+    exit 1
+  fi
+  unzip -q -o "$MAVEN_ZIP" -d "$MAVEN_DIST_DIR"
+fi
+
+export MAVEN_PROJECTBASEDIR="$BASE_DIR"
+exec "$MAVEN_HOME/bin/mvn" "$@"

@@ -1,0 +1,24 @@
+# Dependencias
+node_modules/
+
+# Builds
+dist/
+build/
+
+# Variables locales
+.env
+.env.*
+!.env.example
+.env.local
+
+# Logs de npm/yarn/pnpm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDEs y sistema operativo
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

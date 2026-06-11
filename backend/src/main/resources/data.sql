@@ -1,0 +1,2 @@
+-- Datos iniciales deshabilitados por seguridad.
+-- Los usuarios base se crean en DataBootstrap con contraseñas BCrypt.
