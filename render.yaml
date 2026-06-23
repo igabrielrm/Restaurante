@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: restobar-api
+    runtime: java
+    region: ohio
+    plan: free
+    rootDir: backend
+    buildCommand: chmod +x mvnw && ./mvnw -DskipTests package
+    startCommand: java -jar target/restaurante-0.0.1-SNAPSHOT.jar
+    healthCheckPath: /api/auth/csrf
+    envVars:
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: SESSION_COOKIE_SAME_SITE
+        value: None
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
